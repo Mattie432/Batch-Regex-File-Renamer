@@ -46,10 +46,10 @@ public class RegexParser {
 			if (str.charAt(0) == '"') {
 				// check quotations closed
 				int positionOfCloseQuotation = str.substring(1, str.length())
-						.indexOf('"') + 1;
+						.indexOf('"');
 				if (positionOfCloseQuotation != -1) {
 					String substring = str.substring(
-							positionOfCloseQuotation + 1, str.length());
+							positionOfCloseQuotation + 2, str.length());
 					if (substring.length() > 0
 							&& substring.charAt(0) == fullstopChar) {
 						// check for operator

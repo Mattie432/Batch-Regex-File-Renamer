@@ -225,7 +225,7 @@ public class UserInterface {
 			System.out.println(result);
 			lblAfterRegexParse.setText("After regex parse: ");
 			//TODO need to interperate regex
-			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null, txtimagedatecreated.getText()));
+			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null, txtimagedatecreated.getText(), txtRootFolder.getText()));
 		}else{
 			System.out.println("false: " + RegexParser.getError());
 			lblAfterRegexParse.setText("Error with: ");
