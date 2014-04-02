@@ -5,18 +5,25 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+
 import javax.swing.BoxLayout;
+
 import java.awt.Component;
 import java.awt.Dimension;
+
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 
 public class UserInterface {
 
@@ -26,6 +33,7 @@ public class UserInterface {
 	private JTextField txtimagedatecreated;
 	JLabel lblRegexParse = new JLabel("file.ext");
 	JLabel lblAfterRegexParse = new JLabel("After Regex parse: ");
+	private DocumentListener docListener;
 
 	/**
 	 * Launch the application.
@@ -175,24 +183,29 @@ public class UserInterface {
 		JLabel lblRegex = new JLabel("Regex:");
 		panel_2.add(lblRegex);
 
+		docListener = new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				checkInputRegex();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				checkInputRegex();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+			}
+
+		};
+
 		txtimagedatecreated = new JTextField();
-		txtimagedatecreated.getDocument().addDocumentListener(
-				new DocumentListener() {
+	    
+	    
+		txtimagedatecreated.getDocument().addDocumentListener(docListener);
 
-					@Override
-					public void insertUpdate(DocumentEvent e) {
-						checkInputRegex();
-					}
-
-					@Override
-					public void removeUpdate(DocumentEvent e) {
-						checkInputRegex();
-					}
-
-					@Override
-					public void changedUpdate(DocumentEvent e) {
-					}
-				});
 		txtimagedatecreated.setText("\"image\"/date{created}");
 		panel_2.add(txtimagedatecreated);
 		txtimagedatecreated.setColumns(30);
@@ -211,22 +224,20 @@ public class UserInterface {
 
 		JPanel optionsPanel = new JPanel();
 		panel.add(optionsPanel);
-		
-		
-		
-		
-		
+
 	}
-	
-	private void checkInputRegex(){
-		boolean result = RegexParser.parseStringIsValidExpr(txtimagedatecreated.getText(),
-				true);
-		if(result){
+
+	private void checkInputRegex() {
+
+		boolean result = RegexParser.parseStringIsValidExpr(
+				txtimagedatecreated.getText(), true);
+		if (result) {
 			System.out.println(result);
 			lblAfterRegexParse.setText("After regex parse: ");
-			//TODO need to interperate regex
-			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null, txtimagedatecreated.getText(), txtRootFolder.getText()));
-		}else{
+			// TODO need to interperate regex
+			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null,
+					txtimagedatecreated.getText(), txtRootFolder.getText()));
+		} else {
 			System.out.println("false: " + RegexParser.getError());
 			lblAfterRegexParse.setText("Error with: ");
 			lblRegexParse.setText(RegexParser.getError());

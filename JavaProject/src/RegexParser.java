@@ -47,6 +47,15 @@ public class RegexParser {
 				// check quotations closed
 				int positionOfCloseQuotation = str.substring(1, str.length())
 						.indexOf('"');
+				
+				//check string for illegal chars
+				String betweenQuotes = str.substring(1, positionOfCloseQuotation);
+				Character illegalCharacter = sanatizeString(betweenQuotes);
+				if(illegalCharacter != null){
+					error = "Illegal character : " + illegalCharacter;
+					return false;
+				}
+				
 				if (positionOfCloseQuotation != -1) {
 					String substring = str.substring(
 							positionOfCloseQuotation + 2, str.length());
@@ -150,11 +159,13 @@ public class RegexParser {
 			if (str.indexOf("}") != -1) {
 				int index = str.indexOf("}");
 				String dirNumber = str.substring(0, index);
-				
+
 				// check value betweek brackets
-				if (isNumeric(dirNumber) || dirNumber.indexOf("...") != -1 && dirNumber.lastIndexOf('.') <= 2) {
-					
-					String end = str.substring(str.indexOf("}") + 1, str.length());
+				if (isNumeric(dirNumber) || dirNumber.indexOf("...") != -1
+						&& dirNumber.lastIndexOf('.') <= 2) {
+
+					String end = str.substring(str.indexOf("}") + 1,
+							str.length());
 
 					// check if followd by operator
 					if (end.length() > 0 && end.charAt(0) == '.') {
@@ -248,6 +259,24 @@ public class RegexParser {
 		return error;
 	}
 
-	
+	/**
+	 * Checks that the string input does not contain any illegal characters.
+	 * If it does then it returns the character, if there isnt then it returns null.
+	 * 
+	 * @param text : String - the string to check
+	 * @return char : Character - the illegal character (null if no illegal chars);
+	 */
+	public static Character sanatizeString(String text) {
+		Character[] illegalChars = new Character[] { '.', '/', '?', '<', '>',
+				'\\', ':', '*', '|', '"', '\n', '\r', '\t', '\0', '\f', '`',
+				'\"' };
+
+		for (Character character : illegalChars) {
+			if (text.indexOf(character) != -1) {
+				return character;
+			}
+		}
+		return null;
+	}
 
 }
