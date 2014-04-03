@@ -25,15 +25,21 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 
+import org.apache.commons.io.FileUtils;
+import org.jcp.xml.dsig.internal.dom.ApacheData;
+
+import javax.swing.JProgressBar;
+
 public class UserInterface {
 
 	private JFrame frmBatchRegexFile;
 	private JTextField txtRootFolder;
 	protected File rootFolder;
-	private JTextField txtimagedatecreated;
+	private JTextField txtRegex;
 	JLabel lblRegexParse = new JLabel("file.ext");
 	JLabel lblAfterRegexParse = new JLabel("After Regex parse: ");
 	private DocumentListener docListener;
+	private JButton btnStart = new JButton("Start");
 
 	/**
 	 * Launch the application.
@@ -89,6 +95,7 @@ public class UserInterface {
 			public void actionPerformed(ActionEvent e) {
 				rootFolder = FolderChooser.getFolderChooser();
 				txtRootFolder.setText(rootFolder.toString());
+				checkInputRegex();
 			}
 		});
 		rootFolderPanel.add(btnBrowse);
@@ -201,14 +208,14 @@ public class UserInterface {
 
 		};
 
-		txtimagedatecreated = new JTextField();
+		txtRegex = new JTextField();
 	    
 	    
-		txtimagedatecreated.getDocument().addDocumentListener(docListener);
+		txtRegex.getDocument().addDocumentListener(docListener);
 
-		txtimagedatecreated.setText("\"image\"/date{created}");
-		panel_2.add(txtimagedatecreated);
-		txtimagedatecreated.setColumns(30);
+		txtRegex.setText("\"image\"/date{created}");
+		panel_2.add(txtRegex);
+		txtRegex.setColumns(30);
 
 		JPanel panel_3 = new JPanel();
 		regexFolderPanel.add(panel_3);
@@ -224,23 +231,47 @@ public class UserInterface {
 
 		JPanel optionsPanel = new JPanel();
 		panel.add(optionsPanel);
+		
+		JPanel panel_7 = new JPanel();
+		panel.add(panel_7);
+		panel_7.setLayout(new BorderLayout(0, 0));
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FileRenamer fileRenamer = new FileRenamer(txtRootFolder.getText(), txtRegex.getText());
+				fileRenamer.renameFilesInDir();
+			}
+		});
+		
+		btnStart.setEnabled(false);
+		panel_7.add(btnStart, BorderLayout.EAST);
+		
+		JProgressBar progressBar = new JProgressBar();
+		panel_7.add(progressBar, BorderLayout.CENTER);
 
 	}
 
 	private void checkInputRegex() {
 
 		boolean result = RegexParser.parseStringIsValidExpr(
-				txtimagedatecreated.getText(), true);
+				txtRegex.getText(), true);
 		if (result) {
 			System.out.println(result);
 			lblAfterRegexParse.setText("After regex parse: ");
 			// TODO need to interperate regex
+			String textRootFolder = txtRootFolder.getText();
 			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null,
-					txtimagedatecreated.getText(), txtRootFolder.getText()));
+					txtRegex.getText(), textRootFolder));
+
+			if(textRootFolder != null && !textRootFolder.equals("")){
+				btnStart.setEnabled(true);
+			}
+			
+			
 		} else {
 			System.out.println("false: " + RegexParser.getError());
 			lblAfterRegexParse.setText("Error with: ");
 			lblRegexParse.setText(RegexParser.getError());
+			btnStart.setEnabled(false);
 		}
 	}
 }

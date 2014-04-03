@@ -17,7 +17,7 @@ public class RegexParser {
 	 * regex = expr | expr expr
 	 */
 	public static ArrayList<String> identifiers = new ArrayList<String>(
-			Arrays.asList("/date{curr}", "/date{created}", "/d{"));
+			Arrays.asList("/date{curr}", "/date{created}", "/d{","/date{modified}"));
 	public static ArrayList<String> operators = new ArrayList<String>(
 			Arrays.asList(".replace", ".toUpperCase", ".toLowerCase", ".trim"));
 	private static String error = "empty regex";
@@ -35,7 +35,7 @@ public class RegexParser {
 	 */
 	public static boolean parseStringIsValidExpr(String str, Boolean topLevel) {
 		error = "empty regex";
-		str.trim();
+		// str.trim();
 		if (str.length() == 0 && topLevel == false) {
 			return true;
 		} else if (str.length() == 0 && topLevel == true) {
@@ -47,15 +47,21 @@ public class RegexParser {
 				// check quotations closed
 				int positionOfCloseQuotation = str.substring(1, str.length())
 						.indexOf('"');
-				
-				//check string for illegal chars
-				String betweenQuotes = str.substring(1, positionOfCloseQuotation);
+				if (positionOfCloseQuotation == -1) {
+					error = "Quotes not closed";
+					return false;
+				}
+
+				// check string for illegal chars
+				String betweenQuotes = str.substring(1,
+						positionOfCloseQuotation);
 				Character illegalCharacter = sanatizeString(betweenQuotes);
-				if(illegalCharacter != null){
+
+				if (illegalCharacter != null) {
 					error = "Illegal character : " + illegalCharacter;
 					return false;
 				}
-				
+
 				if (positionOfCloseQuotation != -1) {
 					String substring = str.substring(
 							positionOfCloseQuotation + 2, str.length());
@@ -79,7 +85,7 @@ public class RegexParser {
 					if (extractedIdentifier.indexOf(identifier) != -1) {
 
 						// if its the directory identifier
-						if (identifier == identifiers.get(2)) {
+						if (identifier == "/d{") {
 							return parseDirectory(str.substring(
 									identifier.length(), str.length())
 									.toString());
@@ -260,11 +266,14 @@ public class RegexParser {
 	}
 
 	/**
-	 * Checks that the string input does not contain any illegal characters.
-	 * If it does then it returns the character, if there isnt then it returns null.
+	 * Checks that the string input does not contain any illegal characters. If
+	 * it does then it returns the character, if there isnt then it returns
+	 * null.
 	 * 
-	 * @param text : String - the string to check
-	 * @return char : Character - the illegal character (null if no illegal chars);
+	 * @param text
+	 *            : String - the string to check
+	 * @return char : Character - the illegal character (null if no illegal
+	 *         chars);
 	 */
 	public static Character sanatizeString(String text) {
 		Character[] illegalChars = new Character[] { '.', '/', '?', '<', '>',
