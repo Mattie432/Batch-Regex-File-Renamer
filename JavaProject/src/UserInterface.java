@@ -178,6 +178,9 @@ public class UserInterface {
 				".trim : Remove leading & trailing spaces");
 		lbltrimRemoves.setBorder(new EmptyBorder(0, 2, 2, 2));
 		panel_6.add(lbltrimRemoves);
+		
+		JSeparator separator_2 = new JSeparator();
+		regexFolderPanel.add(separator_2);
 
 		JPanel panel_1 = new JPanel();
 		regexFolderPanel.add(panel_1);
@@ -264,6 +267,7 @@ public class UserInterface {
 		panel_7.add(btnStart, BorderLayout.EAST);
 
 		progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
 		panel_7.add(progressBar, BorderLayout.CENTER); 
 
 		frmBatchRegexFile.pack();
