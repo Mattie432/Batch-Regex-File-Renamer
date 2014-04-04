@@ -35,6 +35,7 @@ Operations can be performed on all of the regex identifiers to modify the result
   ```
   This will replace any "-" in the date string with underscores.
 
+
 * #### Realtime feedback
 The program will check your regex input in real time and tell you of any errors. It will also provide you with an example of what a renamed file will look like based on an example file.
 
