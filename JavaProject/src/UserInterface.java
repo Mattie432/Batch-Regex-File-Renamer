@@ -31,6 +31,8 @@ import org.jcp.xml.dsig.internal.dom.ApacheData;
 
 import javax.swing.JProgressBar;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 public class UserInterface {
 
@@ -42,6 +44,7 @@ public class UserInterface {
 	JLabel lblAfterRegexParse = new JLabel("After Regex parse: ");
 	private DocumentListener docListener;
 	private JButton btnStart = new JButton("Start");
+	public JProgressBar progressBar;
 
 	/**
 	 * Launch the application.
@@ -251,7 +254,7 @@ public class UserInterface {
 					FileRenamer fileRenamer = new FileRenamer(txtRootFolder
 							.getText(), txtRegex.getText());
 					fileRenamer.renameFilesInDir(chckbxSearchSubdirectories
-							.isSelected());
+							.isSelected(), progressBar);
 				}
 
 			}
@@ -260,8 +263,8 @@ public class UserInterface {
 		btnStart.setEnabled(false);
 		panel_7.add(btnStart, BorderLayout.EAST);
 
-		JProgressBar progressBar = new JProgressBar();
-		panel_7.add(progressBar, BorderLayout.CENTER);
+		progressBar = new JProgressBar();
+		panel_7.add(progressBar, BorderLayout.CENTER); 
 
 		frmBatchRegexFile.pack();
 	}
@@ -273,7 +276,6 @@ public class UserInterface {
 		if (result) {
 			System.out.println(result);
 			lblAfterRegexParse.setText("After regex parse: ");
-			// TODO need to interperate regex
 			String textRootFolder = txtRootFolder.getText();
 			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null,
 					txtRegex.getText(), textRootFolder));
