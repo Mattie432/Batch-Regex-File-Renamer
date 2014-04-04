@@ -242,8 +242,9 @@ public class RegexInterpereter {
 										.format(inputDateFormat.parse(dateTime));
 								formattedDate = formattedDate.substring(0,
 										formattedDate.indexOf(" "));
+								formattedDate = formattedDate.replace("/", "-");
 
-								System.out.println(formattedDate);
+								//System.out.println(formattedDate);
 
 								returnStr += formattedDate;
 							} catch (IOException e) {
@@ -284,8 +285,8 @@ public class RegexInterpereter {
 										.format(inputDateFormat.parse(dateTime));
 								formattedDate = formattedDate.substring(0,
 										formattedDate.indexOf(" "));
-
-								System.out.println(formattedDate);
+								formattedDate = formattedDate.replace("/", "-");
+								//System.out.println(formattedDate);
 
 								returnStr += formattedDate;
 							} catch (IOException e) {

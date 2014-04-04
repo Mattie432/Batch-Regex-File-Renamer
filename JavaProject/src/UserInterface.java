@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ import org.apache.commons.io.FileUtils;
 import org.jcp.xml.dsig.internal.dom.ApacheData;
 
 import javax.swing.JProgressBar;
+import javax.swing.JCheckBox;
 
 public class UserInterface {
 
@@ -209,8 +211,7 @@ public class UserInterface {
 		};
 
 		txtRegex = new JTextField();
-	    
-	    
+
 		txtRegex.getDocument().addDocumentListener(docListener);
 
 		txtRegex.setText("\"image\"/date{created}");
@@ -231,29 +232,44 @@ public class UserInterface {
 
 		JPanel optionsPanel = new JPanel();
 		panel.add(optionsPanel);
-		
+
+		final JCheckBox chckbxSearchSubdirectories = new JCheckBox(
+				"Search sub-directories");
+		optionsPanel.add(chckbxSearchSubdirectories);
+
 		JPanel panel_7 = new JPanel();
 		panel.add(panel_7);
 		panel_7.setLayout(new BorderLayout(0, 0));
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileRenamer fileRenamer = new FileRenamer(txtRootFolder.getText(), txtRegex.getText());
-				fileRenamer.renameFilesInDir();
+
+				int reply = JOptionPane.showConfirmDialog(null,
+						"Are you sure you wish to rename all flies in the directory: \n"
+								+ txtRootFolder.getText(),
+						"Confirm rename operation", JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					FileRenamer fileRenamer = new FileRenamer(txtRootFolder
+							.getText(), txtRegex.getText());
+					fileRenamer.renameFilesInDir(chckbxSearchSubdirectories
+							.isSelected());
+				}
+
 			}
 		});
-		
+
 		btnStart.setEnabled(false);
 		panel_7.add(btnStart, BorderLayout.EAST);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		panel_7.add(progressBar, BorderLayout.CENTER);
 
+		frmBatchRegexFile.pack();
 	}
 
 	private void checkInputRegex() {
 
-		boolean result = RegexParser.parseStringIsValidExpr(
-				txtRegex.getText(), true);
+		boolean result = RegexParser.parseStringIsValidExpr(txtRegex.getText(),
+				true);
 		if (result) {
 			System.out.println(result);
 			lblAfterRegexParse.setText("After regex parse: ");
@@ -262,11 +278,10 @@ public class UserInterface {
 			lblRegexParse.setText(RegexInterpereter.getRenamedFilename(null,
 					txtRegex.getText(), textRootFolder));
 
-			if(textRootFolder != null && !textRootFolder.equals("")){
+			if (textRootFolder != null && !textRootFolder.equals("")) {
 				btnStart.setEnabled(true);
 			}
-			
-			
+
 		} else {
 			System.out.println("false: " + RegexParser.getError());
 			lblAfterRegexParse.setText("Error with: ");
