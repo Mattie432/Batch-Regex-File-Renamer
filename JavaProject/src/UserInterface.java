@@ -6,8 +6,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -23,16 +21,10 @@ import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.DocumentFilter;
-
-import org.apache.commons.io.FileUtils;
-import org.jcp.xml.dsig.internal.dom.ApacheData;
+import About.AboutJava;
 
 import javax.swing.JProgressBar;
 import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 
 public class UserInterface {
 
@@ -246,6 +238,15 @@ public class UserInterface {
 		JPanel panel_7 = new JPanel();
 		panel.add(panel_7);
 		panel_7.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_8 = new JPanel();
+		panel_8.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel_8.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel_8.setBorder(null);
+		panel_7.add(panel_8, BorderLayout.EAST);
+		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.X_AXIS));
+		btnStart.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_8.add(btnStart);
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -264,7 +265,16 @@ public class UserInterface {
 		});
 
 		btnStart.setEnabled(false);
-		panel_7.add(btnStart, BorderLayout.EAST);
+		
+		JButton btnNewButton = new JButton("About");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("unused")
+				AboutJava about = new AboutJava();
+			}
+		});
+		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_8.add(btnNewButton);
 
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);

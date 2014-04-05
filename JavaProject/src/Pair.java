@@ -1,9 +1,22 @@
 @SuppressWarnings("hiding")
+/**
+ * 
+ * @author Mattie432
+ *
+ * Pair used to hold the count of files renamed in a directory
+ * @param <String> - 
+ * @param <integer>
+ */
 public class Pair<String, integer> {
 
   private String left;
   private int right;
 
+  /**
+   * Constructor for class
+   * @param left : String - directory
+   * @param right : int - count
+   */
   public Pair(String left, int right) {
     this.left = left;
     this.right = right;

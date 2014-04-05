@@ -9,15 +9,21 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle;
 
 public class RegexInterpereter {
 
+	/**
+	 * Gets the renamed filename according to the regex.
+	 * 
+	 * @param file
+	 *            : File - the file to create the name for
+	 * @param regex
+	 *            : String - the regex to use
+	 * @param root
+	 *            : String - the root directory
+	 * @return fileName : String - the new filename
+	 */
 	public static String getRenamedFilename(File file, String regex, String root) {
 		String fileName = "";
 
@@ -31,6 +37,13 @@ public class RegexInterpereter {
 		return fileName;
 	}
 
+	/**
+	 * Gets the next item in the regex.
+	 * 
+	 * @param str
+	 *            : String - remaining regex
+	 * @return item : String - next regex item
+	 */
 	public static String getNextItem(String str) {
 
 		String returnStr = "";
@@ -73,6 +86,17 @@ public class RegexInterpereter {
 		return returnStr;
 	}
 
+	/**
+	 * Creates the relevent filename component from the regex item.
+	 * 
+	 * @param file
+	 *            : File - the file geting the name of
+	 * @param item
+	 *            : String - the regex item (use getNextItem)
+	 * @param root
+	 *            : String - the root directory
+	 * @return item : String - the parsed item.
+	 */
 	private static String parseNextItem(File file, String item, String root) {
 		String returnStr = "";
 
@@ -106,8 +130,9 @@ public class RegexInterpereter {
 								temp = temp.replace('\\', '_');
 								int indexOf = temp.indexOf('_');
 								int length = temp.length();
-								if(temp.indexOf('_') != -1 && indexOf == length-1){
-									temp = temp.substring(0, length -1);
+								if (temp.indexOf('_') != -1
+										&& indexOf == length - 1) {
+									temp = temp.substring(0, length - 1);
 								}
 								returnStr += temp;
 								return returnStr;
@@ -150,9 +175,10 @@ public class RegexInterpereter {
 								temp = temp.substring(
 										temp.lastIndexOf("/") + 1,
 										temp.length());
-								
-								if(temp.indexOf('_') != -1 && temp.indexOf('_') == temp.length()-1){
-									temp = temp.substring(0, temp.length() -1);
+
+								if (temp.indexOf('_') != -1
+										&& temp.indexOf('_') == temp.length() - 1) {
+									temp = temp.substring(0, temp.length() - 1);
 								}
 
 								returnStr += temp;
@@ -197,12 +223,13 @@ public class RegexInterpereter {
 										temp.lastIndexOf("/") + 1,
 										temp.length());
 								temp = temp.replace('\\', '_');
-								
-								if(temp.indexOf('_') != -1 && temp.indexOf('_') == temp.length()-1){
-									temp = temp.substring(0, temp.length() -1);
+
+								if (temp.indexOf('_') != -1
+										&& temp.indexOf('_') == temp.length() - 1) {
+									temp = temp.substring(0, temp.length() - 1);
 								}
 								returnStr += temp;
-								
+
 								return returnStr;
 
 							}
@@ -244,7 +271,7 @@ public class RegexInterpereter {
 										formattedDate.indexOf(" "));
 								formattedDate = formattedDate.replace("/", "-");
 
-								//System.out.println(formattedDate);
+								// System.out.println(formattedDate);
 
 								returnStr += formattedDate;
 							} catch (IOException e) {
@@ -286,7 +313,7 @@ public class RegexInterpereter {
 								formattedDate = formattedDate.substring(0,
 										formattedDate.indexOf(" "));
 								formattedDate = formattedDate.replace("/", "-");
-								//System.out.println(formattedDate);
+								// System.out.println(formattedDate);
 
 								returnStr += formattedDate;
 							} catch (IOException e) {
@@ -304,6 +331,13 @@ public class RegexInterpereter {
 		return returnStr;
 	}
 
+	/**
+	 * Checks if the item is followed by an operator.
+	 * @param str : String - the item to check (from getNextItem)
+	 * @param returnStr : String - the item after parsing (from parseNextItem)
+	 * @param identifier : String - the previous identifier (from parseNextItem)
+	 * @return operator : String - the opertator in string form.
+	 */
 	private static String checkNextItemForOperator(String str,
 			String returnStr, String identifier) {
 
@@ -337,6 +371,14 @@ public class RegexInterpereter {
 		return returnStr;
 	}
 
+	/**
+	 * Parses the item operator and performs the correct operation on the item.
+	 * 
+	 * @param returnStr : String - the parsed identifier (from parseNextItem)
+	 * @param itemOriginal : String - the unparsed identifier
+	 * @return item : String - the parsed item with the operator applied
+	 * @throws Exception
+	 */
 	private static String parseItemsOperator(String returnStr,
 			String itemOriginal) throws Exception {
 		int indexOf = itemOriginal.indexOf('.');

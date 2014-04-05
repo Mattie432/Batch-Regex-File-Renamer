@@ -17,7 +17,8 @@ public class RegexParser {
 	 * regex = expr | expr expr
 	 */
 	public static ArrayList<String> identifiers = new ArrayList<String>(
-			Arrays.asList("/date{curr}", "/date{created}", "/d{","/date{modified}"));
+			Arrays.asList("/date{curr}", "/date{created}", "/d{",
+					"/date{modified}"));
 	public static ArrayList<String> operators = new ArrayList<String>(
 			Arrays.asList(".replace", ".toUpperCase", ".toLowerCase", ".trim"));
 	private static String error = "empty regex";
@@ -109,8 +110,7 @@ public class RegexParser {
 						}
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 

@@ -1,10 +1,6 @@
-import java.awt.EventQueue;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
@@ -21,11 +17,23 @@ public class FileRenamer {
 	@SuppressWarnings("rawtypes")
 	ArrayList<Pair> directoryCount = new ArrayList<Pair>();
 
+	/**
+	 * Constructor for the class.
+	 * 
+	 * @param root : String - the root directory
+	 * @param regex : String - the regex to use
+	 */
 	public FileRenamer(String root, String regex) {
 		this.root = root;
 		this.regex = regex;
 	}
 
+	/**
+	 * Starts the renaming process in the root directory.
+	 * 
+	 * @param includeSubFolders : Boolean - search through subfolders as well
+	 * @param progressBar : JProgressBar - the progressbar to update (can be null)
+	 */
 	public void renameFilesInDir(Boolean includeSubFolders,
 			final JProgressBar progressBar) {
 		progressBar.setValue(0);
@@ -71,6 +79,10 @@ public class FileRenamer {
 		}
 	}
 
+	/**
+	 * Calculates the percentage completeion
+	 * @return value : Int - percentage complete
+	 */
 	private int getValue() {
 		return (countIterators / maxSize) * 100;
 	}
