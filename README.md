@@ -29,13 +29,10 @@ Operations can be performed on all of the regex identifiers to modify the result
   1. .replace("str1","str") - replaces all instances of the first string with the second.
   2. .toUpperCase - converts the identifier to upper case.
   3. .toLowerCase - converts the identifier to lower case.
-  4. .trim - removes leading and trailing white-space
+  4. .trim - removes leading and trailing white-space  
+  An example: `/date{created}.replace("-","_")`  
+  This will replace any "-" in the date string with underscores.
 
-An example:  
-```
-/date{created}.replace("-","_")
-```
-This will replace any "-" in the date string with underscores.
 
 * #### Realtime feedback
 The program will check your regex input in real time and tell you of any errors. It will also provide you with an example of what a renamed file will look like based on an example file.
