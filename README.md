@@ -16,12 +16,15 @@ There is an option to rename files in subfolders as well as files in the root di
 Files can be renamed accoring to a regular expression. These expressions can contain a number of attributes of the file being renamed or the directory it is located in. These include:
   1. /d{...} - all directory names upto the root directory.
   2. /d{n} - the nth directory above the file (n is an integer)  
-        **Note:** if directory dosent exist then this will be blank in the filename.
+        *Note:* if directory dosent exist then this will be blank in the filename.
   3. /date{curr} - todays date in current timezone format
   4. /date{created} - the date the file was created
   5. /date{modified} - the date the file was last modified
   6. "sometext" - a string of text
        
+
+* #### Realtime feedback
+The program will check your regex input in real time and tell you of any errors. It will also provide you with an example of what a renamed file will look like based on an example file.
 
 * #### Operations on the regex identifiers
 Operations can be performed on all of the regex identifiers to modify the results. These include:
@@ -33,9 +36,6 @@ Operations can be performed on all of the regex identifiers to modify the result
   An example: `/date{created}.replace("-","_")`  
   This will replace any "-" in the date string with underscores.
 
-
-* #### Realtime feedback
-The program will check your regex input in real time and tell you of any errors. It will also provide you with an example of what a renamed file will look like based on an example file.
 
 
 ## Updates
