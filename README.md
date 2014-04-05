@@ -1,7 +1,9 @@
 # Batch Regex File Renamer
 
 ## Overview
-This program is used to rename all files in a directory (including sub-directories) to match a regex provided by the user. This regex can included a number of file specific attributes (discussed in the features section) as well as strings.
+This program is used to rename all files in a directory (including sub-directories) to match a regex provided by the user. This regex can included a number of file specific attributes (discussed in 
+
+the features section) as well as strings.
 
 ![Image](https://raw.githubusercontent.com/Mattie432/Batch-Regex-File-Renamer/master/Images/UserInterface.png)
 
@@ -29,14 +31,13 @@ Operations can be performed on all of the regex identifiers to modify the result
   3. .toLowerCase - converts the identifier to lower case.
   4. .trim - removes leading and trailing white-space
 
-  An example:  
-  ```
-  /date{created}.replace("-","_")
-  ```
-  This will replace any "-" in the date string with underscores.
+An example:  
+```
+/date{created}.replace("-","_")
+```
+This will replace any "-" in the date string with underscores.
 
-
-* #### Operations on the regex identifiers
+* #### Realtime feedback
 The program will check your regex input in real time and tell you of any errors. It will also provide you with an example of what a renamed file will look like based on an example file.
 
 
