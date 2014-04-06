@@ -50,7 +50,7 @@ public class AboutJava extends JFrame {
 		setType(Type.UTILITY);
 		setTitle("About");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 536, 474);
+		setBounds(100, 100, 553, 594);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -99,11 +99,10 @@ public class AboutJava extends JFrame {
 		lblTwitter.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/twitter.png")));
 		lblTwitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
-		JLabel lblGithub = new JLabel("<html>\r\n<a href=\"https://github.com/Mattie432\">https://github.com/Mattie432</a>\r\n</html>");
-		panel_3.add(lblGithub);
-		lblGithub.setBorder(new EmptyBorder(0, 0, 2, 0));
-		lblGithub.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/Apps-github-icon.png")));
-		lblGithub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		JLabel lblGoogleplus = new JLabel("<html>\r\n<a href=\"\">https://plus.google.com/</a>\r\n</html>");
+		lblGoogleplus.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/googleplus-icon.png")));
+		lblGoogleplus.setBorder(new EmptyBorder(0, 0, 2, 0));
+		panel_3.add(lblGoogleplus);
 		
 		JLabel lblFacebook = new JLabel("<html>\r\n<a href=\"https://www.facebook.com/Mattie432\">https://www.facebook.com/Mattie432</a>\r\n</html>");
 		panel_3.add(lblFacebook);
@@ -111,11 +110,38 @@ public class AboutJava extends JFrame {
 		lblFacebook.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/facebook-icon.png")));
 		lblFacebook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
+		JLabel lblGithub = new JLabel("<html>\r\n<a href=\"https://github.com/Mattie432\">https://github.com/Mattie432</a>\r\n</html>");
+		panel_3.add(lblGithub);
+		lblGithub.setBorder(new EmptyBorder(0, 0, 2, 0));
+		lblGithub.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/Apps-github-icon.png")));
+		lblGithub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblGithub.addMouseListener(new MouseAdapter() {
+		   public void mouseClicked(MouseEvent e) {
+		      if (e.getClickCount() > 0) {
+		    	  if (Desktop.isDesktopSupported()) {
+		                Desktop desktop = Desktop.getDesktop();
+		                try {
+		                		URI uri = new URI("https://github.com/Mattie432");
+		                        desktop.browse(uri);
+		                } catch (IOException ex) {
+		                        // do nothing
+		                } catch (URISyntaxException ex) {
+							//do nothing
+						}
+		        } else {
+		               //do nothing
+		        }
+
+		      }
+		   }
+		});
+		
 		JLabel lblWebsite = new JLabel("<html>\r\n<a href=\"https://mattie432.com\">https://mattie432.com</a>\r\n</html>");
 		panel_3.add(lblWebsite);
 		lblWebsite.setBorder(new EmptyBorder(0, 0, 2, 0));
 		lblWebsite.setIcon(new ImageIcon(AboutJava.class.getResource("/About/images/Web-HTML-icon.png")));
 		lblWebsite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblGoogleplus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		JLabel lblEmail = new JLabel("<html>\r\n<a href=\"\">mattie432@icloud.com</a>\r\n</html>");
 		panel_3.add(lblEmail);
@@ -162,26 +188,6 @@ public class AboutJava extends JFrame {
 		      }
 		   }
 		});
-		lblGithub.addMouseListener(new MouseAdapter() {
-		   public void mouseClicked(MouseEvent e) {
-		      if (e.getClickCount() > 0) {
-		    	  if (Desktop.isDesktopSupported()) {
-		                Desktop desktop = Desktop.getDesktop();
-		                try {
-		                		URI uri = new URI("https://github.com/Mattie432");
-		                        desktop.browse(uri);
-		                } catch (IOException ex) {
-		                        // do nothing
-		                } catch (URISyntaxException ex) {
-							//do nothing
-						}
-		        } else {
-		               //do nothing
-		        }
-
-		      }
-		   }
-		});
 		lblTwitter.addMouseListener(new MouseAdapter() {
 			   public void mouseClicked(MouseEvent e) {
 			      if (e.getClickCount() > 0) {
@@ -189,6 +195,26 @@ public class AboutJava extends JFrame {
 			                Desktop desktop = Desktop.getDesktop();
 			                try {
 			                		URI uri = new URI("https://twitter.com/mattie432");
+			                        desktop.browse(uri);
+			                } catch (IOException ex) {
+			                        // do nothing
+			                } catch (URISyntaxException ex) {
+								//do nothing
+							}
+			        } else {
+			               //do nothing
+			        }
+
+			      }
+			   }
+			});
+		lblGoogleplus.addMouseListener(new MouseAdapter() {
+			   public void mouseClicked(MouseEvent e) {
+			      if (e.getClickCount() > 0) {
+			    	  if (Desktop.isDesktopSupported()) {
+			                Desktop desktop = Desktop.getDesktop();
+			                try {
+			                		URI uri = new URI("https://plus.google.com/105284836470417338928/about");
 			                        desktop.browse(uri);
 			                } catch (IOException ex) {
 			                        // do nothing
