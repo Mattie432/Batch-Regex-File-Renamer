@@ -43,7 +43,7 @@ If there are any suggestions about additions that could be made to the program p
 
 
 ## Links
-[Download .jar file](https://github.com/Mattie432/Batch-Regex-File-Renamer/blob/master/BatchRegexFileRenamer.jar)
+[Download .jar file](https://github.com/Mattie432/Batch-Regex-File-Renamer/releases)
 
 [Personal website](https://mattie432.com)  
 (Contact information can be found here)
